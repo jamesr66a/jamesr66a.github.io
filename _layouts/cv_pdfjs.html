@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
+
+  <!-- Head -->
+  <head>
+  {%- if page.redirect -%}
+    <meta http-equiv="refresh" content="3; url={{ site.baseurl }}/" />
+  {%- endif -%}
+  {% include head.html %}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js"></script>
+
+  <style>
+    #pdf-container {
+        width: 100%; /* This ensures the container takes up the full width of its parent. */
+        overflow: hidden; /* This ensures any excess height from the canvas is hidden. */
+    }
+
+    canvas {
+      width: 100%;
+      height: auto !important; /* Override the JavaScript-set height. */
+    }
+  </style>
+
+  </head>
+
+  <!-- Body -->
+  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+
+    <!-- Header -->
+    {%- include header.html %}
+
+    <!-- Content -->
+    <div class="container mt-5">
+      {% if page.toc and page.toc.sidebar %}
+        {% if page.toc.sidebar == "right" %}
+        <div class="row">
+          <!-- main content area -->
+          <div class="col-sm-9">
+            {{ content }}
+          </div>
+          <!-- sidebar, which will move to the top on a small screen -->
+          <div class="col-sm-3">
+            <nav id="toc-sidebar" class="sticky-top"></nav>
+          </div>
+        </div>
+        {% else %}
+        <div class="row">
+          <!-- sidebar, which will move to the top on a small screen -->
+          <div class="col-sm-3">
+            <nav id="toc-sidebar" class="sticky-top"></nav>
+          </div>
+          <!-- main content area -->
+          <div class="col-sm-9">
+            {{ content }}
+          </div>
+        </div>
+        {% endif %}
+      {% else %}
+        {{ content }}
+      {% endif %}
+    </div>
+
+    <!-- Footer -->
+    {%- include footer.html %}
+
+    <!-- JavaScripts -->
+    {% include scripts/jquery.html %}
+    {% include scripts/bootstrap.html %}
+    {% include scripts/masonry.html %}
+    {% include scripts/misc.html %}
+    {% include scripts/badges.html %}
+    {% include scripts/mathjax.html %}
+    {% include scripts/analytics.html %}
+    {% include scripts/progressBar.html %}
+
+    <script>
+      var url = '../assets/pdf/cv.pdf';  // Path to your PDF file
+
+      var pdfDoc = null;
+
+      function renderPDF() {
+          pdfjsLib.getDocument(url).promise.then(function(pdfDoc) {
+              var pdf_container = document.getElementById('pdf-container');
+
+              var to_remove = [];
+              for (let i = 0; i < pdf_container.childNodes.length; i++) {
+                  if (pdf_container.childNodes[i].nodeName == 'CANVAS') {
+                      to_remove.push(pdf_container.childNodes[i]);
+                  }
+              }
+
+              for (let i = 0; i < to_remove.length; i++) {
+                  pdf_container.removeChild(to_remove[i]);
+              }
+
+              for(let num = 1; num <= pdfDoc.numPages; num++) {
+                  pdfDoc.getPage(num).then(function(page) {
+                      var containerWidth = document.getElementById('pdf-container').offsetWidth;
+                      var scale = containerWidth / page.getViewport({ scale: 1 }).width;
+                      var renderScale = scale * 2;
+                      var renderViewport = page.getViewport({ scale: renderScale });
+
+                      var canvas = document.createElement('canvas');
+                      canvas.style.width = `${renderViewport.width / 2}px`; // CSS downscale
+                      canvas.style.height = `${renderViewport.height / 2}px`;
+                      canvas.width = renderViewport.width;  // Actual canvas resolution
+                      canvas.height = renderViewport.height;
+                      pdf_container.appendChild(canvas);
+
+                      var ctx = canvas.getContext('2d');
+                      var renderTask = page.render({
+                          canvasContext: ctx,
+                          viewport: renderViewport
+                      });
+                  });
+              }
+          });
+      }
+
+      renderPDF();
+
+      function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            const context = this;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(context, args), wait);
+        };
+      }
+
+      window.addEventListener('resize', debounce(renderPDF, 150));
+
+    </script>
+  </body>
+</html>
