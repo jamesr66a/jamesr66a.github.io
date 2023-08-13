@@ -2,25 +2,22 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: Systems Software Engineer with a Focus on Deep Learning Systems
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
-  address: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
 
-news: true  # includes a list of news items
-latest_posts: true  # includes a list of the newest posts
-selected_papers: true # includes a list of papers marked as "selected={true}"
+news: false  # includes a list of news items
+latest_posts: false  # includes a list of the newest posts
+selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+James K. Reed is an experienced software engineer with hands-on experience in programming languages, compiler design, and deep learning platforms. He is fascinated by the whole computing stack from programming interface down to silicon, and seeks to investigate the intersection of these as the newest AI revolution drives High-Performance Computing (HPC) innovation.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+At his current role at [fireworks.ai](fireworks.ai), James is applying his skills to build a high-performance service for customized Large Language Model (LLM) workloads. Before this, James worked with the PyTorch team at Meta (formerly Facebook) as a Staff Software Engineer, where he led development of toolkits including [torch.fx](https://arxiv.org/abs/2112.08429), [PiPPy](https://github.com/pytorch/PiPPy), [TorchScript](https://pytorch.org/docs/stable/jit.html), and [ONNX](https://onnx.ai/). He completed his Bachelor of Science in Computer Engineering from Virginia Tech, graduating Summa Cum Laude.
+
+You can follow James's work on his [GitHub](https://github.com/jamesr66a/) profile and connect with him on [LinkedIn](https://www.linkedin.com/in/jamesr66a/). James has published [academic papers, patents, conference talks, and blog posts](/publications).
