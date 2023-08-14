@@ -1,6 +1,6 @@
 ---
 layout: distill
-title: 'Zero  -Shot Grammars: Teaching LLMs Novel Programming Languages On-The-Fly'
+title: 'Zero-Shot Grammars: Teaching LLMs Novel Programming Languages On-The-Fly'
 date: 2023-08-13
 
 authors:
@@ -34,6 +34,11 @@ bibliography: 2023-08-13-one-shot-grammars-llms.bib
         * semantic parsing (SMCalFlow,Overnight,GeoQuery), PDDL planning, molecule generation(SMILES).
         * Constrained decoding: LR early parser is intractable because of multi-token continuations and the need to call the LLM API on every time step
         * Speculatively generate an entire continuation, if it parses return, otherwise use Earley LR parser to find longest valid prefix
+        * Experiments:
+          1. Standard prompting
+          2. Standard prompting w/ constrained generation
+          3. Derivation tree-based prompting
+        * Codex as base LLM for experiments
 
 ## Solving the Tokenization Problem?
 
